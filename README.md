@@ -1,2 +1,2 @@
 # Graphical User Interface
-All code for the GUI class
+Code form the GUI class
