@@ -1,5 +1,5 @@
 # converter.py
-# Student: <Your Name> | Course: <Course Name> | Project: Assignment 7 (PySide6) | Date: <Date>
+# Student: <Alexander Wilson> | Course: <Graphical User Interface> | Project: Assignment 7 (PySide6) | Date: <03-29-2026 / 4-1-2026>
 
 import sys
 from PySide6.QtWidgets import (
@@ -13,8 +13,8 @@ from PySide6.QtCore import Qt
 INCH_TO_METER = 0.0254
 
 class ConverterWindow(QMainWindow):
-    def init(self):
-        super().init()
+    def __init__(self):
+        super().__init__()
         self.setWindowTitle("Measurement Converter (PySide6)")
         self._build_ui()
         self._wire_events()
@@ -23,6 +23,11 @@ class ConverterWindow(QMainWindow):
     def _build_ui(self):
         central = QWidget(self)
         self.setCentralWidget(central)
+
+        # Title styling
+        self.lblTitle = QLabel("Measurement Converter")
+        self.lblTitle.setAlignment(Qt.AlignCenter)
+        self.lblTitle.setStyleSheet("font-size: 18px; font-weight: bold;")
 
         # Input
         self.lblPrompt = QLabel("Enter a value:")
@@ -52,6 +57,7 @@ class ConverterWindow(QMainWindow):
         self.imgFrame = QFrame()
         self.imgLabel = QLabel(alignment=Qt.AlignCenter)
         pix = QPixmap("assets/house.png")
+        # pix = QPixmap("house.png")  # Alternative if assets folder is not used
         self.imgLabel.setPixmap(pix.scaled(180, 180, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         vimg = QVBoxLayout(self.imgFrame)
         vimg.addWidget(self.imgLabel)
@@ -70,6 +76,8 @@ class ConverterWindow(QMainWindow):
         hbtns.addWidget(self.btnClear)
         hbtns.addWidget(self.btnExit)
         grid.addLayout(hbtns, 3, 0, 1, 3)
+
+        grid.addWidget(self.lblTitle, 0, 0, 1, 3)
 
         # Optional theming: ensure contrast/readability
         self.setStyleSheet("""
@@ -99,7 +107,7 @@ class ConverterWindow(QMainWindow):
     def on_convert(self):
         text = self.txtInput.text().strip()
         if not text:
-            self._error("Please enter a value.")
+            self._error("Value entered is not numeric.")
             return
         try:
             value = float(text)
@@ -112,9 +120,15 @@ class ConverterWindow(QMainWindow):
 
         if self.rbInToM.isChecked():
             meters = value * INCH_TO_METER
+            if meters < 0:
+                self._error("Converted value is negative.")
+                return
             self.lblResult.setText(f"{value:.3f} inches = {meters:.3f} meters")
         else:
             inches = value / INCH_TO_METER
+            if inches < 0:
+                self._error("Converted value is negative.")
+                return
             self.lblResult.setText(f"{value:.3f} meters = {inches:.3f} inches")
 
 def main():
@@ -124,5 +138,5 @@ def main():
     w.show()
     sys.exit(app.exec())
 
-#if name == "main":
-   # main()
+if __name__ == "__main__":
+   main()
