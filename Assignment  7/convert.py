@@ -56,8 +56,8 @@ class ConverterWindow(QMainWindow):
         # Image
         self.imgFrame = QFrame()
         self.imgLabel = QLabel(alignment=Qt.AlignCenter)
-        pix = QPixmap("assets/house.png")
-        # pix = QPixmap("house.png")  # Alternative if assets folder is not used
+        # pix = QPixmap("assets/house.png")
+        pix = QPixmap("house.png")
         self.imgLabel.setPixmap(pix.scaled(180, 180, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         vimg = QVBoxLayout(self.imgFrame)
         vimg.addWidget(self.imgLabel)
@@ -82,7 +82,7 @@ class ConverterWindow(QMainWindow):
         # Optional theming: ensure contrast/readability
         self.setStyleSheet("""
             QMainWindow { background: #243447; }
-            QLabel, QGroupBox, QRadioButton { color: #f0f0f0; font-size: 14px; }
+            QLabel, QGroupBox, QRadioButton { color: #f5f5f5; font-size: 14px; }
             QLineEdit { font-size: 14px; padding: 6px; }
             QPushButton { font-size: 14px; padding: 6px 12px; }
         """)
