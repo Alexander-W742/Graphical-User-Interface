@@ -56,9 +56,12 @@ class ConverterWindow(QMainWindow):
         # Image
         self.imgFrame = QFrame()
         self.imgLabel = QLabel(alignment=Qt.AlignCenter)
-        # pix = QPixmap("assets/house.png")
-        pix = QPixmap("house.png")
-        self.imgLabel.setPixmap(pix.scaled(180, 180, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        pix = QPixmap("Assignment  7\house.png")
+        # Ckeck if the image loaded successfully
+        if pix.isNull():
+            self.imgLabel.setText("Image not found")
+        else:
+            self.imgLabel.setPixmap(pix.scaled(180, 180, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         vimg = QVBoxLayout(self.imgFrame)
         vimg.addWidget(self.imgLabel)
 
